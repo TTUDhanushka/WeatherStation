@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WeatherStation"
              x:Class="WeatherStation.MainPage">
 
     <StackLayout Padding="30">
+        <Label x:Name="Heading" Text="Current wind speed" FontSize="Large"/>
         <Entry x:Name="DeviceNameEntry" Placeholder="Enter Bluetooth Device Name"/>
-        <Button Text="Connect" Clicked="OnConnectClicked"/>
+        <local:CustomButton Text="Connect" Clicked="OnConnectClicked" Style="{StaticResource Key=RoundedButton}" TextTransform="Default"/>
         <Label x:Name="DataLabel" Text="Data will be displayed here" FontSize="Large"/>
     </StackLayout>
 </ContentPage>
