@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WeatherStation"
              x:Class="WeatherStation.MainPage">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" Order="Secondary" Priority="0"/>
+    </ContentPage.ToolbarItems>
+    
     <StackLayout Padding="30">
-        <Label x:Name="Heading" Text="Current wind speed" FontSize="Large"/>
+
         <Entry x:Name="DeviceNameEntry" Placeholder="Enter Bluetooth Device Name"/>
-        <local:CustomButton Text="Connect" Clicked="OnConnectClicked" Style="{StaticResource Key=RoundedButton}" TextTransform="Default"/>
-        <Label x:Name="DataLabel" Text="Data will be displayed here" FontSize="Large"/>
+        <local:CustomButton Text="Connect" Clicked="OnConnectClicked" 
+                            Style="{StaticResource Key=RoundedButton}" 
+                            TextTransform="Default"/>
+        <Label x:Name="Heading" Text="WIND SPEED" FontSize="Small"/>
+        <Label x:Name="DataLabel" Text="0" 
+               FontSize="Large"/>
     </StackLayout>
 </ContentPage>
