@@ -1,1 +1,1 @@
-Connect to the anemometer via bluetooth. Device name "esp32"
+Connect to the anemometer via bluetooth. The device name "esp32"

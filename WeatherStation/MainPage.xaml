@@ -9,6 +9,7 @@
     
     <StackLayout Padding="30">
 
+        <local:WindSpeedMeterView x:Name="speedometer" WidthRequest="300" HeightRequest="300" />
         <Entry x:Name="DeviceNameEntry" Placeholder="Enter Bluetooth Device Name"/>
         <local:CustomButton Text="Connect" Clicked="OnConnectClicked" 
                             Style="{StaticResource Key=RoundedButton}" 
