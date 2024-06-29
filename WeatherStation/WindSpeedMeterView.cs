@@ -35,7 +35,7 @@ namespace WeatherStation
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
-            canvas.Clear(SKColors.Black);
+            canvas.Clear(SKColors.LightBlue);
 
             var width = e.Info.Width;
             var height = e.Info.Height;
@@ -46,13 +46,41 @@ namespace WeatherStation
             var paint = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
-                Color = SKColors.White,
+                Color = SKColors.LightGray,
                 StrokeWidth = 10,
                 IsAntialias = true
             };
 
+            var gauge_outer = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = SKColors.Black,
+                StrokeWidth = 4,
+                IsAntialias = true
+            };
+
+            // Draw the speed text
+            //paint.Style = SKPaintStyle.Fill;
+            paint.TextSize = 100;
+            paint.Color = SKColors.DarkBlue;
+            var speedText = Speed.ToString("0");
+            var textBounds = new SKRect();
+            paint.MeasureText(speedText, ref textBounds);
+            canvas.DrawText(speedText, centerX - textBounds.MidX, centerY + (radius/2) + textBounds.MidY, paint);
+
             // Draw the outer circle
-            canvas.DrawCircle(centerX, centerY, radius, paint);
+
+            canvas.RotateDegrees(135, centerX, centerY);
+
+            SKRect oval_inner = new SKRect(0, 0, width - 20, height - 20);
+            SKRect oval_outer = new SKRect(0, 0, width - 100, height - 100);
+
+            SKPath outer_path = new SKPath();
+            outer_path.AddArc(oval_inner, 0, 270);
+            outer_path.AddArc(oval_outer, 0, 270);
+
+            canvas.DrawPath(outer_path, gauge_outer);
+
 
             // Draw the ticks
             paint.StrokeWidth = 5;
@@ -66,21 +94,14 @@ namespace WeatherStation
                 canvas.DrawLine(startX, startY, endX, endY, paint);
             }
 
-            // Draw the speed text
-            paint.Style = SKPaintStyle.Fill;
-            paint.TextSize = 60;
-            paint.Color = SKColors.White;
-            var speedText = Speed.ToString("0");
-            var textBounds = new SKRect();
-            paint.MeasureText(speedText, ref textBounds);
-            canvas.DrawText(speedText, centerX - textBounds.MidX, centerY + textBounds.MidY, paint);
+
 
             // Draw the needle
             paint.Style = SKPaintStyle.Stroke;
-            paint.StrokeWidth = 5;
-            paint.Color = SKColors.Red;
+            paint.StrokeWidth = 10;
+            paint.Color = SKColors.DarkGray;
             var needleAngle = Math.PI * (Speed / 240) * 180 / 180;
-            var needleX = centerX + (radius - 40) * (float)Math.Cos(needleAngle);
+            var needleX = centerX - (2 *radius) + (radius - 40) * (float)Math.Cos(needleAngle);
             var needleY = centerY + (radius - 40) * (float)Math.Sin(needleAngle);
             canvas.DrawLine(centerX, centerY, needleX, needleY, paint);
         }
